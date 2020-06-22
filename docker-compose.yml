@@ -53,7 +53,7 @@ services:
       # Mount for kapacitor data directory
       - ./grafana/data/:/var/lib/grafana
       # Mount for kapacitor configuration
-      - ./grafana/config/:/etc/grafana/
+      - ./grafana/etc/:/etc/grafana/
     # Kapacitor requires network access to Influxdb
     links:
       - influxdb
