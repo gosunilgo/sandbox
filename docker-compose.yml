@@ -41,6 +41,26 @@ services:
     depends_on:
       - influxdb
 
+  grafana:
+  # Full tag list: https://hub.docker.com/r/library/kapacitor/tags/
+    build:
+      #context: ./images/kapacitor/
+      #dockerfile: ./${TYPE}/Dockerfile
+      #args:
+      #  KAPACITOR_TAG: ${KAPACITOR_TAG}
+    image: "grafana/grafana"
+    volumes:
+      # Mount for kapacitor data directory
+      - ./grafana/data/:/var/lib/grafana
+      # Mount for kapacitor configuration
+      - ./grafana/config/:/etc/grafana/
+    # Kapacitor requires network access to Influxdb
+    links:
+      - influxdb
+    ports:
+      # The API for Kapacitor is served on port 9092
+      - "3000:3000"
+
   kapacitor:
   # Full tag list: https://hub.docker.com/r/library/kapacitor/tags/
     build:
